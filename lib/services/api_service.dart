@@ -42,7 +42,7 @@ class ApiService {
       user.alarmTimes = List<String>.from(response.data['esmAlarms']);
     }
 
-    // TODO user.alarmTimes = alarmTimes; 알람 시간을 위한 새로운 객체를 만들기 .. ?
+    // TODO user.alarmTimes = alarmTimes; 알람 시간을 위한 새로운 객체를 만들기
 
     /* DEBUG CONSOLE 확인*/
     debugPrint("-- POST /user");

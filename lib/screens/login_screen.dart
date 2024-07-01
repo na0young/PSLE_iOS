@@ -1,17 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:psle/screens/home_screen.dart';
+import 'package:psle/services/api_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final idController = TextEditingController();
-    final passwordController = TextEditingController();
+  State<LoginScreen> createState() => _LoginScreenState();
+}
 
+class _LoginScreenState extends State<LoginScreen> {
+  final idController = TextEditingController();
+  final passwordController = TextEditingController();
+  final ApiService apiService = ApiService();
+
+  Future<void> _login() async {
+    try {
+      final user = await apiService.postUser(
+        idController.text,
+        passwordController.text,
+      );
+
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('loginId', user.loginId!);
+      await prefs.setString('password', user.password!);
+      await prefs.setBool('isLoggedIn', true);
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Login failed: $e')),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -55,17 +87,13 @@ class LoginScreen extends StatelessWidget {
               obscureText: true,
             ),
             const SizedBox(height: 20),
-            Container(
+            SizedBox(
               width: double.infinity,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color.fromARGB(255, 255, 111, 111),
                 ),
-                onPressed: () {
-                  //Navigator.push(context,
-                  //MaterialPageRoute(builder: (context)=>HomeScreen()),
-                  //);
-                },
+                onPressed: _login,
                 child: const Text(
                   '로그인',
                   style: TextStyle(
