@@ -61,6 +61,13 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  Future<void> _refreshLastRecordTime() async {
+    setState(() {
+      lastRecordTime = '업데이트 중 ... ';
+    });
+    await _loadLastRecordTime();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
