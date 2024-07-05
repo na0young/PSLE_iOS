@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:psle/models/user.dart';
-import 'package:psle/models/esm_test_log.dart';
 import 'package:psle/screens/webview_screen.dart';
 import 'package:psle/screens/login_screen.dart';
 import 'package:psle/services/api_service.dart';
@@ -56,6 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _logout() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.clear();
+    if (!mounted) return;
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => const LoginScreen()),
@@ -71,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               Text(
                 '$userName님',
-                style: TextStyle(color: Colors.black, fontSize: 16),
+                style: const TextStyle(color: Colors.black, fontSize: 16),
               ),
               const SizedBox(width: 8),
               ElevatedButton(
@@ -111,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 15), // 정서 반복 기록 Text위 여백
+                  const SizedBox(height: 15), // 정서 반복 기록 Text위 여백
                   const Text(
                     '정서 반복 기록',
                     style: TextStyle(
@@ -122,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(height: 10), // 정서 반복 기록 과 최근 기록 시간 사이 여백
                   Text(
                     '최근 기록 시간 : $lastRecordTime',
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Color.fromARGB(255, 61, 61, 61),
                       fontSize: 18,
                     ),
@@ -132,19 +131,20 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             const SizedBox(height: 100), // Box와 기록하러가기 버튼 사이 여백
-            Container(
+            SizedBox(
               width: double.infinity,
               height: 45,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromARGB(255, 255, 111, 111),
+                    backgroundColor: const Color.fromARGB(255, 255, 111, 111),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
                     )),
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => WebviewScreen()),
+                    MaterialPageRoute(
+                        builder: (context) => const WebviewScreen()),
                   );
                 },
                 child: const Text(
@@ -158,12 +158,12 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             const SizedBox(height: 8), // 기록하러 가기 버튼과 동기화 버튼 사이 여백
-            Container(
+            SizedBox(
               width: double.infinity,
               height: 45,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromARGB(255, 255, 111, 111),
+                  backgroundColor: const Color.fromARGB(255, 255, 111, 111),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),
                   ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:psle/models/user.dart';
 
 class WebviewScreen extends StatefulWidget {
   const WebviewScreen({super.key});
@@ -32,8 +31,8 @@ class _WebviewScreenState extends State<WebviewScreen> {
   @override
   Widget build(BuildContext context) {
     if (userId == null || userPw == null) {
-      return Scaffold(
-        body: const Center(
+      return const Scaffold(
+        body: Center(
           child: Text('오류: 사용자 정보가 누락되었습니다.'),
         ),
       );

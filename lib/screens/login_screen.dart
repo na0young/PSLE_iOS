@@ -29,6 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
       await prefs.setString('userName', user.name!);
       await prefs.setBool('isLoggedIn', true);
 
+      if (!mounted) return;
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const HomeScreen()),
@@ -93,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
               width: double.infinity,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromARGB(255, 255, 111, 111),
+                  backgroundColor: const Color.fromARGB(255, 255, 111, 111),
                 ),
                 onPressed: _login,
                 child: const Text(
