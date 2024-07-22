@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:psle/screens/home_screen.dart';
+import 'package:psle/services/alarm_service.dart';
 import 'package:psle/services/api_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,6 +15,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final idController = TextEditingController();
   final passwordController = TextEditingController();
   final ApiService apiService = ApiService();
+  final AlarmService alarmService = AlarmService();
 
   Future<void> _login() async {
     try {
@@ -27,9 +29,11 @@ class _LoginScreenState extends State<LoginScreen> {
       await prefs.setString('loginId', user.loginId!);
       await prefs.setString('password', user.password!);
       await prefs.setString('userName', user.name!);
+      await prefs.setStringList('alarmTimes', user.alarmTimes ?? []);
       await prefs.setBool('isLoggedIn', true);
 
       if (!mounted) return;
+      await alarmService.syncAlarmTimes(); // 알람시간 동기화
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const HomeScreen()),

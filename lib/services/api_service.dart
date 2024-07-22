@@ -101,4 +101,16 @@ class ApiService {
      */
     return esmTestLog;
   }
+
+  Future<DateTime?> getLastRecordDateTime(int userId) async {
+    EsmTestLog esmTestLog = await postEsmTestLog(userId);
+    if (esmTestLog.date != null && esmTestLog.time != null) {
+      try {
+        return DateTime.parse('${esmTestLog.date} ${esmTestLog.time}');
+      } catch (e) {
+        debugPrint('Error parsing DateTime: $e');
+      }
+    }
+    return null;
+  }
 }

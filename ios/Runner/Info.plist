@@ -52,5 +52,18 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
+	<key>UIBackgroundModes</key>
+	<array>
+    	<string>fetch</string>
+    	<string>remote-notification</string>
+	</array>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>We use your location to show relevant content.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>We use your location to show relevant content.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We use your location to show relevant content.</string>
+	<key>NSLocationUsageDescription</key>
+	<string>We use your location to show relevant content.</string>
 </dict>
 </plist>

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:psle/screens/webview_screen.dart';
 import 'package:psle/screens/login_screen.dart';
 import 'package:psle/services/api_service.dart';
+import 'package:psle/services/alarm_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,6 +16,8 @@ class _HomeScreenState extends State<HomeScreen> {
   String userName = '';
   String lastRecordTime = '최근 기록 없음';
   final ApiService apiService = ApiService();
+  //final InspectService inspectService = InspectService();
+  final AlarmService alarmService = AlarmService();
 
   @override
   void initState() {
@@ -66,6 +69,11 @@ class _HomeScreenState extends State<HomeScreen> {
       lastRecordTime = '업데이트 중 ... ';
     });
     await _loadLastRecordTime();
+  }
+
+  Future<void> _syncAlarms() async {
+    //알람시간 동기화 로직
+    await alarmService.syncAlarmTimes();
   }
 
   @override
@@ -175,9 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     borderRadius: BorderRadius.circular(5),
                   ),
                 ),
-                onPressed: () {
-                  // 동기화 로직
-                },
+                onPressed: _syncAlarms,
                 child: const Text(
                   '알람 시간 동기화',
                   style: TextStyle(
