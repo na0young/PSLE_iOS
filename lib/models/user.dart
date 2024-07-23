@@ -17,7 +17,7 @@ class User {
       name: json['name'],
       alarmTimes: json['esmAlarms'] != null
           ? List<String>.from(json['esmAlarms'])
-          : ['16:53:00', '17:04:00', '17:06:00', '17:08:00'], // API 통신 실패시 디폴트값
+          : ['9:00:00', '12:00:00', '15:00:00', '18:08:00'], // API 통신 실패시 디폴트값
     );
   }
 

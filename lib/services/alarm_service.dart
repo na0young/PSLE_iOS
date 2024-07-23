@@ -38,6 +38,9 @@ class AlarmService {
       platformChnnelSpecifics,
       payload: alarmId.toString(),
     );
+
+    // 알람을 울린 후 해당 알람을 취소
+    await flutterLocalNotificationsPlugin.cancel(alarmId);
   }
 
   // 최근 기록을 검사하는 함수
